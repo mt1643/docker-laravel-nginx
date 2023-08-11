@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  # laravel
+  test-app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    volumes:
+      - ./src/:/app
+  # nginx
+  test-web:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - 8080:80
+    volumes:
+      - ./src/:/app
+    depends_on:
+      - test-app
